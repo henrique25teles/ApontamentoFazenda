@@ -32,6 +32,7 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
                 autoCapitalize="none" 
                 blurOnSubmit={false} 
                 returnKeyType="next"
+                textContentType="username"
                 onSubmitEditing={usuario_onSubmit}
             />
             <Input 
@@ -40,11 +41,11 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
                 leftIconContainerStyle={styles.iconeEsquerdo}
                 containerStyle={styles.texto}
                 autoCorrect={false} 
-                keyboardType="visible-password"
                 autoCapitalize="none" 
                 blurOnSubmit={true} 
-                returnKeyType="done" 
+                returnKeyType="done"
                 textContentType="password"
+                secureTextEntry={true}
                 ref={txtSenha}
             />
             <Button 
