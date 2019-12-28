@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import PageLogin from 'pages/login'
 import PageIniciarApontamento from 'pages/apontamento/'
 import PageFinalizarApontamento from 'pages/apontamento/finalizarApontamento'
+import PageApontamento from 'pages/apontamento/apontamento'
 
 const MainPage = createStackNavigator({
     IniciarApontamento: {
@@ -11,6 +12,12 @@ const MainPage = createStackNavigator({
         navigationOptions: {
             title: 'Iniciar Apontamento',
         },
+    },
+    Apontamento: {
+        screen: PageApontamento,
+        navigationOptions: {
+            title: 'Apontamento'
+        }
     },
     FinalizarApontamento: {
         screen: PageFinalizarApontamento,
