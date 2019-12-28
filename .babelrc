@@ -1,0 +1,18 @@
+{
+    "plugins": [
+      ["module-resolver", {
+        "root": ["./src"],
+        "extensions": [
+            ".js", 
+            ".ios.js",
+            ".android.js",
+            ".ts",
+            ".ios.ts",
+            ".android.ts",
+            ".tsx",
+            ".ios.tsx",
+            ".android.tsx"
+        ]
+      }]
+    ]
+  }
