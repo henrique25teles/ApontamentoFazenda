@@ -4,16 +4,11 @@ import {AppLoading} from 'expo'
 import {Asset} from 'expo-asset'
 import * as Font from 'expo-font'
 import { Ionicons, Entypo, AntDesign, MaterialCommunityIcons, FontAwesome5, FontAwesome, Octicons, MaterialIcons, EvilIcons, Feather } from '@expo/vector-icons';
-import { Dispatch } from 'redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { EventoAction, EventosActionTypes } from 'types/store/EventosState'
-import { CentroCustoAction, CentrosCustosActionTypes } from 'types/store/CentrosCustosState';
+import { EventosActionTypes } from 'types/store/EventosState'
+import { CentrosCustosActionTypes } from 'types/store/CentrosCustosState';
 import AppContainer from './routes'
-import CentroCusto from 'types/models/CentroCusto';
-import Evento from 'types/models/Evento';
-import ApontamentosState, { ApontamentosActionTypes } from 'types/store/ApontamentosState';
-import { GlobalStore } from 'store';
 
 export default function Start() {
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -40,27 +35,8 @@ export default function Start() {
     }
 
     function loadDados(): void {
-        const centrosCustos: Array<CentroCusto> = [
-            { id: 0, descricao: 'Selecione'},
-            { id: 1, descricao: 'geral'},
-            { id: 2, descricao: 'centro 2'},
-            { id: 3, descricao: 'Jair baitola'},
-        ]
-
-        dispatch({type: CentrosCustosActionTypes.UPDATE_ALL, payload: centrosCustos})
-
-        const eventos: Array<Evento> = [
-            { id: 0, descricao: 'Celecione', turma: 'Turma teste 1'},
-            { id: 1, descricao: 'Eventi 1', turma: 'Turma teste 4'},
-            { id: 2, descricao: 'evento 2', turma: 'Turma teste 3'},
-            { id: 3, descricao: 'Evento 3', turma: 'Turma teste 8'},
-            { id: 4, descricao: 'Evento 4', turma: 'Turma teste 7'},
-            { id: 5, descricao: 'Evento 5', turma: 'Turma teste 84'},
-            { id: 6, descricao: 'Evento 6', turma: 'Turma teste 43'},
-            { id: 7, descricao: 'Evento 7', turma: 'Turma teste 44'},
-        ]
-
-        dispatch({ type: EventosActionTypes.UPDATE_ALL, payload: eventos})
+        dispatch({ type: CentrosCustosActionTypes.LOAD_CENTROSCUSTOS })
+        dispatch({ type: EventosActionTypes.LOAD_EVENTOS})
     }
     
     if (isLoading) {

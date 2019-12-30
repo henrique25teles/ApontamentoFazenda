@@ -9,11 +9,14 @@ const updateApontamento = (payload: Apontamento) => action(ApontamentosActionTyp
 
 const deleteApontamento = (payload: Apontamento) => action(ApontamentosActionTypes.DELETE_APONTAMENTO, payload)
 
+const sincronizaApontamento = (payload: Apontamento) => action(ApontamentosActionTypes.SYNC_APONTAMENTO, payload)
+
 const deletaTodosApontamentos = (): ApontamentoAction => action(ApontamentosActionTypes.DELETE_APONTAMENTO)
 
 export { 
     addApontamento, 
     updateApontamento, 
     deleteApontamento,
+    sincronizaApontamento,
     deletaTodosApontamentos 
 }

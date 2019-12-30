@@ -9,8 +9,17 @@ const updateCentroCusto = (payload: CentroCusto) => action(CentrosCustosActionTy
 
 const deleteCentroCusto = (payload: CentroCusto) => action(CentrosCustosActionTypes.DELETE_CENTROCUSTO, payload)
 
+const loadCentrosCustos = () => action(CentrosCustosActionTypes.LOAD_CENTROSCUSTOS)
+
 const updateTodosCentrosCustos = (payload: CentroCusto[]) => action(CentrosCustosActionTypes.UPDATE_ALL, payload)
 
 const deletaTodosCentrosCustos = (): CentroCustoAction => action(CentrosCustosActionTypes.DELETE_ALL)
 
-export { addCentroCusto, updateCentroCusto, deleteCentroCusto, updateTodosCentrosCustos, deletaTodosCentrosCustos }
+export { 
+    addCentroCusto, 
+    updateCentroCusto, 
+    deleteCentroCusto, 
+    loadCentrosCustos,
+    updateTodosCentrosCustos, 
+    deletaTodosCentrosCustos 
+}

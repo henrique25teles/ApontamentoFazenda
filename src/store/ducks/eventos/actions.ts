@@ -9,6 +9,8 @@ const updateEvento = (payload: Evento) => action(EventosActionTypes.UPDATE_EVENT
 
 const deleteEvento = (payload: Evento) => action(EventosActionTypes.DELETE_EVENTO, payload)
 
+const loadEventos = () => action(EventosActionTypes.LOAD_EVENTOS)
+
 const updateTodosEventos = (payload: Evento[]) => action(EventosActionTypes.UPDATE_ALL, payload)
 
 const deletaTodosEventos = () => action(EventosActionTypes.DELETE_EVENTO)

@@ -4,6 +4,7 @@ export enum CentrosCustosActionTypes {
     ADD_CENTROCUSTO = '@centrosCustos/ADD_CENTROCUSTO',
     UPDATE_CENTROCUSTO = '@centrosCustos/UPDATE_CENTROCUSTO',
     DELETE_CENTROCUSTO = '@centrosCustos/DELETE_CENTROCUSTO',
+    LOAD_CENTROSCUSTOS = '@centrosCustos/LOAD_CENTROSCUSTOS',
     UPDATE_ALL = '@centrosCustos/UPDATE_ALL',
     DELETE_ALL = '@centrosCustos/DELETE_ALL',
 }
