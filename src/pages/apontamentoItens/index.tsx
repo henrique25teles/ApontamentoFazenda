@@ -82,7 +82,16 @@ export default function ApontamentoQuantidades(props: PropsWithChildren<Props>){
                         icon: {name:'user', type:'antdesign'}, 
                         size: 'medium'
                     }}
-                    rightIcon={<Icon name="plussquareo" type="antdesign" size={35} Component={TouchableOpacity} onPress={() => adicionarQuantidade(item.id)} />}
+                    rightIcon={
+                        <Icon 
+                            name="plussquareo" 
+                            type="antdesign" 
+                            size={25} 
+                            Component={TouchableOpacity} 
+                            onPress={() => adicionarQuantidade(item.id)} 
+                            raised
+                        />
+                    }
                     bottomDivider
                 />
             </Swipeable>
