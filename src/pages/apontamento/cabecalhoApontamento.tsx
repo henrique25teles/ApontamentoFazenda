@@ -4,22 +4,32 @@ import {Text, Icon} from 'react-native-elements'
 
 import {StackProps} from 'types/common/navigation'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Evento from 'types/models/Evento';
+import {format as formatDate} from 'date-fns'
+import ptBrLocale from 'date-fns/locale/pt-BR'
+import { useSelector } from 'react-redux';
+import { GlobalStore } from 'store';
+import Apontamento from 'types/models/Apontamento';
 
-interface Props extends StackProps<any> {}
+interface Props extends StackProps<any> {
+    evento: Evento
+}
 
 export default function CabecalhoApontamento(props: PropsWithChildren<Props>){
+    const apontamentoSelecionado = useSelector<GlobalStore, Apontamento>(state => state.apontamentoSelecionado)
+
     function visualizarItensApontamentos() {
         props.navigation.navigate('ApontamentoItens')
     }
-
+    
     return (
         <View style={styles.cabecalho}>
             <View style={styles.viewTurma}>
-                <Text h3 h3Style={styles.turmaLabel}>Turma 1</Text>
+                <Text h3 h3Style={styles.turmaLabel}>{props.evento.turma}</Text>
                 <Icon type="font-awesome" name="sitemap" Component={TouchableOpacity} onPressOut={visualizarItensApontamentos} raised />
             </View>
             <View>
-                <Text h4 h4Style={styles.dataApontamentoLabel} >Apontamento Iniciado as 7:00</Text>
+                <Text h4 h4Style={styles.dataApontamentoLabel} >{apontamentoSelecionado.dataHoraInicio ? formatDate(new Date(apontamentoSelecionado.dataHoraInicio), "'Apontamento Iniciado às' hh':'mm ", {locale: ptBrLocale}) : ""}</Text>
             </View>
         </View>
     )

@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useState } from 'react';
-import { View, FlatList, Alert, Modal, StyleSheet } from 'react-native';
+import { View, FlatList, Modal, StyleSheet, Animated } from 'react-native';
 import {ListItem, Icon, Input, Text, Button} from 'react-native-elements'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 import {StackProps} from 'types/common/navigation'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -35,7 +36,6 @@ export default function ApontamentoQuantidades(props: PropsWithChildren<Props>){
     function adicionarQuantidade(funcionarioId) {
         setIsModalVisible(true)
         setFuncionarioSelecionado(listafuncionarios.find(x => x.id == funcionarioId))
-        //Alert.alert('', `Id do cara ${funcionarioId}`)
     }
 
     function botaoIncluir_onPress() {
@@ -51,18 +51,41 @@ export default function ApontamentoQuantidades(props: PropsWithChildren<Props>){
         setIsModalVisible(false)
     }
 
+    function editar() {
+        props.navigation.navigate('ApontamentoQuantidades')
+    }
+
+    function rightAction (progress, dragX) {
+        const scale = dragX.interpolate({
+            inputRange: [-100, 0],
+            outputRange: [1, 0],
+            extrapolate: 'clamp',
+        });
+        return (
+          <View style={styles.rightAction}>
+            <TouchableOpacity onPress={editar}>
+                <Animated.Text style={[styles.actionText, { transform: [{ scale }] }]}>
+                Editar
+                </Animated.Text>
+            </TouchableOpacity>
+          </View>
+        );
+    };
+
     function renderItem({item}){
         return (
-            <ListItem
-                title={item.nome} 
-                subtitle={item.quantidade.toString()}
-                leftAvatar={{
-                    icon: {name:'user', type:'antdesign'}, 
-                    size: 'medium'
-                }}
-                rightIcon={<Icon name="plussquareo" type="antdesign" size={35} Component={TouchableOpacity} onPress={() => adicionarQuantidade(item.id)} />}
-                bottomDivider
-            />
+            <Swipeable renderRightActions={rightAction} >
+                <ListItem
+                    title={item.nome} 
+                    subtitle={item.quantidade.toString()}
+                    leftAvatar={{
+                        icon: {name:'user', type:'antdesign'}, 
+                        size: 'medium'
+                    }}
+                    rightIcon={<Icon name="plussquareo" type="antdesign" size={35} Component={TouchableOpacity} onPress={() => adicionarQuantidade(item.id)} />}
+                    bottomDivider
+                />
+            </Swipeable>
         )
     }
 
@@ -70,12 +93,12 @@ export default function ApontamentoQuantidades(props: PropsWithChildren<Props>){
         <>
             <View>
                 <FlatList<Funcionarios> 
-                    data={listafuncionarios.sort(x => x.id)} 
+                    data={listafuncionarios} 
                     renderItem={renderItem}
                     keyExtractor={keyextractor}  
                 />
             </View>
-            <Modal animationType="slide" visible={isModalVisible} hardwareAccelerated={true} transparent >
+            <Modal animationType="fade" visible={isModalVisible} hardwareAccelerated={true} transparent >
                 <View style={styles.modal}>
                     <View style={styles.modalView}>
                         <Text h4 h4Style={{position: 'absolute', top: 10, left: 10}}>{funcionarioSelecionado.nome}</Text>
@@ -114,5 +137,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff', 
         padding: 20,
         justifyContent: "center"
-    }
+    },
+    rightAction: {
+        backgroundColor: '#31b554',
+        justifyContent: 'center',
+        // flex: 1,
+        alignItems: 'center',
+    },
+    actionText: {
+        color: '#fff',
+        fontWeight: '600',
+        padding: 20,
+    },
 })

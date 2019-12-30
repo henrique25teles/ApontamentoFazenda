@@ -19,7 +19,7 @@ const reducer: Reducer<ApontamentosSelecionadoState> = (state = INITIAL_STATE, a
         case ApontamentosSelecionadoActionTypes.CHANGE_EVENTO_APONTAMENTO:
             return { ...state, evento: action.payload }
         case ApontamentosSelecionadoActionTypes.INICIA_APONTAMENTO:
-            return { ...state, isIniciado: true  }
+            return { ...state, isIniciado: true, dataHoraInicio: new Date()  }
         case ApontamentosSelecionadoActionTypes.PAUSA_APONTAMENTO:
             return { ...state, isPausado: true }
         case ApontamentosSelecionadoActionTypes.RETOMA_APONTAMENTO:

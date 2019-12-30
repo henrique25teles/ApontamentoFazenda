@@ -7,6 +7,7 @@ export default interface Apontamento {
     centroCusto: number
     evento: number
     apontamentoItens: Array<ApontamentoItem>
+    dataHoraInicio?: Date
     isIniciado: boolean
     isPausado: boolean
     isFinalizado: boolean

@@ -50,14 +50,14 @@ export default function Start() {
         dispatch({type: CentrosCustosActionTypes.UPDATE_ALL, payload: centrosCustos})
 
         const eventos: Array<Evento> = [
-            { id: 0, descricao: 'Celecione'},
-            { id: 1, descricao: 'Eventi 1'},
-            { id: 2, descricao: 'evento 2'},
-            { id: 3, descricao: 'Evento 3'},
-            { id: 4, descricao: 'Evento 4'},
-            { id: 5, descricao: 'Evento 5'},
-            { id: 6, descricao: 'Evento 6'},
-            { id: 7, descricao: 'Evento 7'},
+            { id: 0, descricao: 'Celecione', turma: 'Turma teste 1'},
+            { id: 1, descricao: 'Eventi 1', turma: 'Turma teste 4'},
+            { id: 2, descricao: 'evento 2', turma: 'Turma teste 3'},
+            { id: 3, descricao: 'Evento 3', turma: 'Turma teste 8'},
+            { id: 4, descricao: 'Evento 4', turma: 'Turma teste 7'},
+            { id: 5, descricao: 'Evento 5', turma: 'Turma teste 84'},
+            { id: 6, descricao: 'Evento 6', turma: 'Turma teste 43'},
+            { id: 7, descricao: 'Evento 7', turma: 'Turma teste 44'},
         ]
 
         dispatch({ type: EventosActionTypes.UPDATE_ALL, payload: eventos})
@@ -65,7 +65,6 @@ export default function Start() {
     
     if (isLoading) {
         loadDados()
-        AsyncStorage.getAllKeys().then(x => x.forEach(y => AsyncStorage.getItem(y).then(meuovo => console.log(JSON.parse(meuovo)))))
         
         return (
             <AppLoading 

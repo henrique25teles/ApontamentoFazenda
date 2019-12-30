@@ -4,7 +4,9 @@ import {Button} from 'react-native-elements'
 
 import {StackProps} from 'types/common/navigation'
 import { ApontamentosSelecionadoActionTypes } from 'types/store/ApontamentoSelecionadoState';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { GlobalStore } from 'store';
+import Apontamento from 'types/models/Apontamento';
 
 interface Props extends StackProps<any> {
     isIniciado: boolean
@@ -12,6 +14,8 @@ interface Props extends StackProps<any> {
 }
 
 export default function BotoesApontamento(props: PropsWithChildren<Props>) {
+    const apontamentoSelecionado = useSelector<GlobalStore, Apontamento>(state => state.apontamentoSelecionado)
+    
     function btnFinalizaApontamento_onClick() {
         Alert.alert('', 'Apontamento Finalizado')
     }
@@ -19,8 +23,12 @@ export default function BotoesApontamento(props: PropsWithChildren<Props>) {
     const dispatch = useDispatch()
 
     function btnIniciaApontamento_onClick() {
-        dispatch({type: ApontamentosSelecionadoActionTypes.INICIA_APONTAMENTO})
-        props.navigation.navigate('ApontamentoItens')
+        if (apontamentoSelecionado.evento != 0 && apontamentoSelecionado.centroCusto != 0){
+            dispatch({type: ApontamentosSelecionadoActionTypes.INICIA_APONTAMENTO})
+            props.navigation.navigate('ApontamentoItens')
+        } else {
+            Alert.alert('', 'É necessário selecionar um Centro de Custo e um Evento')
+        }
     }
 
     function btnPausaApontamento_onClick() {

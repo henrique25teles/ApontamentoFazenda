@@ -36,7 +36,7 @@ export default function ApontamentoPage(props: PropsWithChildren<StackProps<any>
         <View style={styles.container}>
             {
                 apontamentoSelecionado.isIniciado ?
-                    <CabecalhoApontamento {...props}/>
+                    <CabecalhoApontamento evento={eventos.find(x => x.id == apontamentoSelecionado.evento)} {...props}/>
                 :
                 null
             }
