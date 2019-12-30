@@ -1,14 +1,14 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, Dispatch } from 'react';
 import { StyleSheet, Alert } from 'react-native';
 import {Button} from 'react-native-elements'
 
 import {StackProps} from 'types/common/navigation'
+import { ApontamentosSelecionadoActionTypes } from 'types/store/ApontamentoSelecionadoState';
+import { useDispatch } from 'react-redux';
 
 interface Props extends StackProps<any> {
     isIniciado: boolean
     isPausado: boolean
-    setIsIniciado: (boolean) => void
-    setIsPausado: (boolean) => void
 }
 
 export default function BotoesApontamento(props: PropsWithChildren<Props>) {
@@ -16,20 +16,20 @@ export default function BotoesApontamento(props: PropsWithChildren<Props>) {
         Alert.alert('', 'Apontamento Finalizado')
     }
 
+    const dispatch = useDispatch()
+
     function btnIniciaApontamento_onClick() {
-        //Alert.alert('', 'Apontamento Iniciado')
-        props.setIsIniciado(true)
-        props.navigation.navigate('Apontamento')
+        dispatch({type: ApontamentosSelecionadoActionTypes.INICIA_APONTAMENTO})
+        props.navigation.navigate('ApontamentoItens')
     }
 
     function btnPausaApontamento_onClick() {
-        Alert.alert('', 'Apontamento Pausado')
-        props.setIsPausado(true)
+        dispatch({type: ApontamentosSelecionadoActionTypes.PAUSA_APONTAMENTO})
     }
 
     function btnRetomaApontamento_onClick() {
-        Alert.alert('', 'Apontamento Retomado')
-        props.setIsPausado(false)
+        dispatch({type: ApontamentosSelecionadoActionTypes.RETOMA_APONTAMENTO})
+
     }
     
     if (props.isIniciado){

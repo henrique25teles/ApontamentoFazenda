@@ -3,8 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 
 import PageLogin from 'pages/login'
 import PageIniciarApontamento from 'pages/apontamento/'
-import PageFinalizarApontamento from 'pages/apontamento/finalizarApontamento'
-import PageApontamento from 'pages/apontamento/apontamento'
+import PageApontamentoItens from 'pages/apontamentoItens'
 
 const MainPage = createStackNavigator({
     IniciarApontamento: {
@@ -13,18 +12,12 @@ const MainPage = createStackNavigator({
             title: 'Iniciar Apontamento',
         },
     },
-    Apontamento: {
-        screen: PageApontamento,
+    ApontamentoItens: {
+        screen: PageApontamentoItens,
         navigationOptions: {
-            title: 'Apontamento'
+            title: 'Quantidades'
         }
     },
-    FinalizarApontamento: {
-        screen: PageFinalizarApontamento,
-        navigationOptions: {
-            title: 'Finalizar Apontamento'
-        },
-    }
 })
 
 const NavegacaoInicial = createSwitchNavigator({

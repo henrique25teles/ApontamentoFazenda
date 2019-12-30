@@ -1,49 +1,31 @@
-import React, { PropsWithChildren, useRef, useState } from 'react'
-import { View, StyleSheet, Picker, Alert } from 'react-native'
+import React, { PropsWithChildren } from 'react'
+import { View, StyleSheet, Picker } from 'react-native'
 import { Text, Button } from 'react-native-elements'
 
 import {StackProps} from 'types/common/navigation'
 import BotoesApontamento from 'pages/apontamento/btnIniciarFinalizarApontamento'
 import CabecalhoApontamento from './cabecalhoApontamento'
 import RodapeApontamento from './rodapeApontamento'
+import { useSelector, useDispatch } from 'react-redux'
+import { GlobalStore } from 'store'
+import Evento from 'types/models/Evento'
+import CentroCusto from 'types/models/CentroCusto'
+import Apontamento from 'types/models/Apontamento'
+import { ApontamentosSelecionadoActionTypes } from 'types/store/ApontamentoSelecionadoState'
 
-interface SelectItem {
-    id: number
-    texto: string
-}
-
-export default function Apontamento(props: PropsWithChildren<StackProps<any>>) {
-    const [isIniciadoApontamento, setIsIniciadoApontamento] = useState<boolean>(false)
-    const [isPausadoApontamento, setIsPausadoApontamento] = useState<boolean>(false)
-
-    const centrosCustos: Array<SelectItem> = [
-        { id: 0, texto: 'Selecione'},
-        { id: 1, texto: 'geral'},
-        { id: 2, texto: 'centro 2'},
-        { id: 3, texto: 'Jair baitola'},
-    ]
+export default function ApontamentoPage(props: PropsWithChildren<StackProps<any>>) {
+    const apontamentoSelecionado = useSelector<GlobalStore, Apontamento>(state => state.apontamentoSelecionado)
+    const centrosCustos = useSelector<GlobalStore, CentroCusto[]>(state => state.centrosCustos.all)
+    const eventos = useSelector<GlobalStore, Evento[]>(state => state.eventos.all)
     
-    const [centroCustoSelecionado, setCentroCustoSelecionado] = useState<number>(centrosCustos[0].id)
-    
-    const eventos: Array<SelectItem> = [
-        { id: 0, texto: 'Celecione'},
-        { id: 1, texto: 'Eventi 1'},
-        { id: 2, texto: 'evento 2'},
-        { id: 3, texto: 'Evento 3'},
-        { id: 4, texto: 'Evento 4'},
-        { id: 5, texto: 'Evento 5'},
-        { id: 6, texto: 'Evento 6'},
-        { id: 7, texto: 'Evento 7'},
-    ]
+    const dispatch = useDispatch()
 
-    const [eventoSelecionado, setEventoSelecionado] = useState<number>(eventos[0].id)
-  
     function dropdownCentroCusto_onChange(itemValue: number, itemIndex: number) {
-        setCentroCustoSelecionado(itemValue)
+        dispatch({type: ApontamentosSelecionadoActionTypes.CHANGE_CENTRO_CUSTO_APONTAMENTO, payload: itemValue})
     }
 
     function dropdownEvento_onChange(itemValue: number, itemIndex: number) {
-        setEventoSelecionado(itemValue)
+        dispatch({type: ApontamentosSelecionadoActionTypes.CHANGE_EVENTO_APONTAMENTO, payload: itemValue})
     }
 
     function btnLogOut_onClick() {
@@ -53,7 +35,7 @@ export default function Apontamento(props: PropsWithChildren<StackProps<any>>) {
     return (
         <View style={styles.container}>
             {
-                isIniciadoApontamento ?
+                apontamentoSelecionado.isIniciado ?
                     <CabecalhoApontamento {...props}/>
                 :
                 null
@@ -64,7 +46,8 @@ export default function Apontamento(props: PropsWithChildren<StackProps<any>>) {
                     <View style={styles.dropDown}>
                         <Picker
                         mode="dialog"
-                        selectedValue={centroCustoSelecionado}
+                        enabled={!apontamentoSelecionado.isIniciado}
+                        selectedValue={apontamentoSelecionado.centroCusto}
                         onValueChange={dropdownCentroCusto_onChange}
                         >
                         {
@@ -72,7 +55,7 @@ export default function Apontamento(props: PropsWithChildren<StackProps<any>>) {
                                 <Picker.Item 
                                     key={index.toString()}
                                     value={centroCusto.id}
-                                    label={centroCusto.texto}
+                                    label={centroCusto.descricao}
                                 />
                             ))
                         }
@@ -84,7 +67,8 @@ export default function Apontamento(props: PropsWithChildren<StackProps<any>>) {
                     <View style={styles.dropDown}>
                         <Picker
                         mode="dialog"
-                        selectedValue={eventoSelecionado}
+                        enabled={!apontamentoSelecionado.isIniciado}
+                        selectedValue={apontamentoSelecionado.evento}
                         onValueChange={dropdownEvento_onChange}
                         >
                         {
@@ -92,7 +76,7 @@ export default function Apontamento(props: PropsWithChildren<StackProps<any>>) {
                                 <Picker.Item 
                                     key={index.toString()}
                                     value={evento.id}
-                                    label={evento.texto}
+                                    label={evento.descricao}
                                 />
                             ))
                         }
@@ -102,15 +86,13 @@ export default function Apontamento(props: PropsWithChildren<StackProps<any>>) {
                 </View>
                 <View style={styles.formBotoes}>
                     <BotoesApontamento 
-                        isIniciado={isIniciadoApontamento} 
-                        setIsIniciado={setIsIniciadoApontamento}
-                        isPausado={isPausadoApontamento} 
-                        setIsPausado={setIsPausadoApontamento}
+                        isIniciado={apontamentoSelecionado.isIniciado}
+                        isPausado={apontamentoSelecionado.isPausado}
                         {...props} />
                 </View>
             </View>
             {
-                isIniciadoApontamento ?
+                apontamentoSelecionado.isIniciado ?
                 <RodapeApontamento {...props} />
                 : 
                 null
