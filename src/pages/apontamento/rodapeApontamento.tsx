@@ -8,23 +8,30 @@ import {StackProps} from 'types/common/navigation'
 import { useSelector } from 'react-redux';
 import { GlobalStore } from 'store';
 import Apontamento from 'types/models/Apontamento';
-import { useInterval } from 'shared/helpers/Util';
+import { useInterval, convertMiliSecondsToTimeElapsed } from 'shared/helpers/Util';
 
 interface Props extends StackProps<any> {}
 
 export default function RodapeApontamento(props: PropsWithChildren<Props>){
     const apontamentoSelecionado = useSelector<GlobalStore, Apontamento>(state => state.apontamentoSelecionado)
-    const [dataAtual, setDataAtual] = useState<Date>(new Date())
+    const [tempoPassado, setTempoPassado] = useState<string>("")
+
+    let dataApontamento = new Date(apontamentoSelecionado.dataHoraInicio).getTime();
 
     useInterval(() => {
-        setDataAtual(new Date())
+        let dataAtual = new Date()
+        let tempo = dataAtual.getTime() - dataApontamento
+        
+        let retorno = convertMiliSecondsToTimeElapsed(tempo)
+        
+        setTempoPassado(retorno)
     }, 1000)
 
     return (
         <View style={styles.rodape}>
                 <View style={styles.tempoTotalView}>
                     <Text h4>Tempo</Text>
-                    <Text h4 h4Style={styles.tempoApontamento}>{formatDistanceStrict(dataAtual, new Date(apontamentoSelecionado.dataHoraInicio), {locale: ptBrLocale, unit:'minute'})}</Text>
+                    <Text h4 h4Style={styles.tempoApontamento}>{tempoPassado}</Text>
                 </View>
                 <View style={styles.totalApontadoView}>
                     <Text h4>Total Apontado</Text>
