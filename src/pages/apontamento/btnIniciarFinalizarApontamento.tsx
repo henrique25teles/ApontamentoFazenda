@@ -94,14 +94,18 @@ export default function BotoesApontamento(props: PropsWithChildren<Props>) {
 const styles = StyleSheet.create({
     botaoContainer: {
         margin: 5,
+        borderRadius: 25
     },
     botaoIniciar: {
-        backgroundColor: '#29c920'
+        backgroundColor: '#29c920',
+        borderRadius: 25
     },
     botaoFinalizar: {
-        backgroundColor: '#cc2616'
+        backgroundColor: '#e63d17',
+        borderRadius: 25
     },
     botaoPausar: {
-        backgroundColor:'#6097f0'
+        backgroundColor:'#6097f0',
+        borderRadius: 25
     },
 })

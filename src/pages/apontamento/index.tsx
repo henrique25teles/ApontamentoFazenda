@@ -138,9 +138,8 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
     },
     dropDown: {
-        borderStyle: "solid", 
-        borderWidth: 1, 
-        borderColor: 'black'
+        elevation: 1,
+        borderRadius: 2
     },
     iconeEsquerdo: {
         left: -10,

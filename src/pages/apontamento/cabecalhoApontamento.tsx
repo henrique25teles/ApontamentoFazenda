@@ -46,15 +46,17 @@ const styles = StyleSheet.create({
         marginLeft: '20%'
     },
     viewTurma: {
+        width: '80%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     turmaLabel: {
-        textDecorationLine: 'underline',
+        color: '#00000080',
+        opacity: 0.95
     },
     dataApontamentoLabel: {
-        color: 'red',
+        color: '#e63d17',
         fontSize: 16
     },
 })

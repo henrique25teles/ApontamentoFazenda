@@ -31,11 +31,11 @@ export default function RodapeApontamento(props: PropsWithChildren<Props>){
         <View style={styles.rodape}>
                 <View style={styles.tempoTotalView}>
                     <Text h4>Tempo</Text>
-                    <Text h4 h4Style={styles.tempoApontamento}>{tempoPassado}</Text>
+                    <Text h4 h4Style={styles.h4Totais}>{tempoPassado}</Text>
                 </View>
                 <View style={styles.totalApontadoView}>
                     <Text h4>Total Apontado</Text>
-                    <Text h2>0</Text>
+                    <Text h4 h4Style={styles.h4Totais}>0</Text>
                 </View>
         </View>
     )
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         margin: 5
     },
-    tempoApontamento: {
-        color: 'red',
+    h4Totais: {
+        color: '#e63d17',
         fontSize: 16
     },
 })

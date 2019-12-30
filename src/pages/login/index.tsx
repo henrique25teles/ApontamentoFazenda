@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useRef, useState} from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Input, Button } from 'react-native-elements'
+import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { Input, Button, Text } from 'react-native-elements'
 
 import {StackProps} from 'types/common/navigation'
 
@@ -21,43 +21,56 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
     }
 
     return (
-        <View style={styles.container}>
-            <Input 
-                label="Usuário"
-                leftIcon={{name:'user', type:'antdesign'}}
-                leftIconContainerStyle={styles.iconeEsquerdo}
-                containerStyle={styles.texto}
-                autoCorrect={false} 
-                keyboardType="default"
-                autoCapitalize="none" 
-                blurOnSubmit={false} 
-                returnKeyType="next"
-                textContentType="username"
-                onSubmitEditing={usuario_onSubmit}
-            />
-            <Input 
-                label="Senha" 
-                leftIcon={{name:'lock', type:'feather'}}
-                leftIconContainerStyle={styles.iconeEsquerdo}
-                containerStyle={styles.texto}
-                autoCorrect={false} 
-                autoCapitalize="none" 
-                blurOnSubmit={true} 
-                returnKeyType="done"
-                textContentType="password"
-                secureTextEntry={true}
-                ref={txtSenha}
-            />
-            <Button 
-                title="Entrar"
-                icon={{name:'login', type:'material-community'}}
-                type="outline" 
-                containerStyle={styles.botaoConfirma}
-                loading={isLoading}
-                onPressOut={entrar_onClick}
-                raised 
-            />
-        </View>
+        <KeyboardAvoidingView behavior="height" style={styles.container}>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-start', width: '78%', paddingBottom: 80}}>
+                    <Text h1 h1Style={{color: '#00000080', opacity: 0.95}}>Login</Text>
+                </View>
+                <View style={styles.lineView}>
+                    <Input 
+                        placeholder="Digite o Nome de usuário"
+                        leftIcon={{name:'user', type:'antdesign'}}
+                        leftIconContainerStyle={styles.iconeEsquerdo}
+                        containerStyle={styles.texto}
+                        inputContainerStyle={styles.textoInputStyle}
+                        autoCorrect={false} 
+                        keyboardType="default"
+                        autoCapitalize="none" 
+                        blurOnSubmit={false} 
+                        returnKeyType="next"
+                        textContentType="username"
+                        onSubmitEditing={usuario_onSubmit}
+                    />
+                </View>
+                <View style={styles.lineView}>
+                    <Input 
+                        placeholder="Digite a senha"
+                        leftIcon={{name:'lock', type:'feather'}}
+                        leftIconContainerStyle={styles.iconeEsquerdo}
+                        containerStyle={styles.texto}
+                        inputContainerStyle={styles.textoInputStyle}
+                        autoCorrect={false} 
+                        autoCapitalize="none" 
+                        blurOnSubmit={true} 
+                        returnKeyType="done"
+                        textContentType="password"
+                        secureTextEntry={true}
+                        ref={txtSenha}
+                    />
+                    </View>
+                    <View style={styles.lineView}>
+                        <Button 
+                            title="Entrar"
+                            icon={{name:'login', type:'material-community'}}
+                            type="outline" 
+                            containerStyle={styles.botaoConfirma}
+                            buttonStyle={styles.botaoEstilo}
+                            titleStyle={styles.botaoTextoEstilo}
+                            loading={isLoading}
+                            onPressOut={entrar_onClick}
+                            raised 
+                        />
+                    </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -70,9 +83,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    lineView: {
+        padding: 5
+    },
     texto: {
         width: 280,
-        paddingBottom: 5,
+        elevation: 2, 
+        borderRadius: 25
+    },
+    textoInputStyle: {
+        borderBottomWidth: 0
     },
     iconeEsquerdo: {
         left: -10,
@@ -80,5 +100,12 @@ const styles = StyleSheet.create({
     botaoConfirma: {
         width: 280,
         paddingTop: 3
+    },
+    botaoEstilo: {
+        borderRadius: 25,
+        backgroundColor: '#f27cb1',
+    },
+    botaoTextoEstilo: {
+        color: '#fafafa'
     }
 })

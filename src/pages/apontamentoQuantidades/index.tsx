@@ -39,7 +39,7 @@ export default function ApontamentoQuantidadesPage(props: PropsWithChildren<Prop
                 title={item.id.toString()} 
                 subtitle={`Horário ${item.hora}`}
                 rightTitle={`Qtde: ${item.quantidade.toString()}`}
-                onPressOut={() => setIsModalVisivel(true)}
+                onPress={() => setIsModalVisivel(true)}
                 Component={TouchableOpacity}
                 bottomDivider
             />
