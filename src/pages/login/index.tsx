@@ -1,53 +1,68 @@
 import React, { PropsWithChildren, useRef, useState} from 'react'
 import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import { Input, Button, Text } from 'react-native-elements'
+import { Input, Button, Text, IconNode, Icon } from 'react-native-elements'
 
+import defaultStyles from 'shared/styles/EstilosPadrao'
 import {StackProps} from 'types/common/navigation'
+import Colors from 'shared/styles/Colors'
 
 export default function Login(props: PropsWithChildren<StackProps<any>>) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
   
     const txtSenha = useRef<Input>();
 
-    function usuario_onSubmit(): void {
+    function txtUsuario_onSubmit(): void {
         txtSenha.current.focus()
     }
 
-    function entrar_onClick(): void {
+    function txtUsuario_leftIcon(): IconNode {
+        return <Icon name="user" type="antdesign" />
+    }
+
+    function txtSenha_leftIcon(): IconNode {
+        return <Icon name="lock" type="feather" />
+    }
+
+    function btnEntrar_icon(): IconNode {
+        return <Icon name="login" type="material-community" />
+    }
+
+    function btnEntrar_onClick(): void {
         setIsLoading(true)
         setTimeout(() => {
             props.navigation.navigate('Main')
         }, 1500);
     }
 
+
     return (
-        <KeyboardAvoidingView behavior="height" style={styles.container}>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-start', width: '78%', paddingBottom: 80}}>
-                    <Text h1 h1Style={{color: '#00000080', opacity: 0.95}}>Login</Text>
+        <KeyboardAvoidingView behavior="height" style={defaultStyles.container}>
+                <View style={styles.cabecalho}>
+                    <Text h1 h1Style={styles.cabecalhoTexto}>Login</Text>
                 </View>
                 <View style={styles.lineView}>
                     <Input 
                         placeholder="Digite o Nome de usuário"
-                        leftIcon={{name:'user', type:'antdesign'}}
-                        leftIconContainerStyle={styles.iconeEsquerdo}
-                        containerStyle={styles.texto}
-                        inputContainerStyle={styles.textoInputStyle}
+                        leftIcon={txtUsuario_leftIcon}
+                        leftIconContainerStyle={defaultStyles.textInputLeftIcon}
+                        containerStyle={defaultStyles.textInputTexto}
+                        inputContainerStyle={defaultStyles.textInputContainerStyle}
                         autoCorrect={false} 
                         keyboardType="default"
                         autoCapitalize="none" 
                         blurOnSubmit={false} 
                         returnKeyType="next"
                         textContentType="username"
-                        onSubmitEditing={usuario_onSubmit}
+                        onSubmitEditing={txtUsuario_onSubmit}
                     />
                 </View>
                 <View style={styles.lineView}>
                     <Input 
                         placeholder="Digite a senha"
-                        leftIcon={{name:'lock', type:'feather'}}
-                        leftIconContainerStyle={styles.iconeEsquerdo}
-                        containerStyle={styles.texto}
-                        inputContainerStyle={styles.textoInputStyle}
+                        leftIcon={txtSenha_leftIcon}
+                        leftIconContainerStyle={defaultStyles.textInputLeftIcon}
+                        containerStyle={defaultStyles.textInputTexto}
+                        inputContainerStyle={defaultStyles.textInputContainerStyle}
                         autoCorrect={false} 
                         autoCapitalize="none" 
                         blurOnSubmit={true} 
@@ -56,56 +71,42 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
                         secureTextEntry={true}
                         ref={txtSenha}
                     />
-                    </View>
-                    <View style={styles.lineView}>
-                        <Button 
-                            title="Entrar"
-                            icon={{name:'login', type:'material-community'}}
-                            type="outline" 
-                            containerStyle={styles.botaoConfirma}
-                            buttonStyle={styles.botaoEstilo}
-                            titleStyle={styles.botaoTextoEstilo}
-                            loading={isLoading}
-                            onPressOut={entrar_onClick}
-                            raised 
-                        />
-                    </View>
+                </View>
+                <View style={styles.lineView}>
+                    <Button 
+                        title="Entrar"
+                        icon={btnEntrar_icon}
+                        type="outline" 
+                        containerStyle={defaultStyles.botaoContainer}
+                        buttonStyle={[defaultStyles.botao, styles.botaoEstilo]}
+                        titleStyle={styles.botaoTextoEstilo}
+                        loading={isLoading}
+                        onPressOut={btnEntrar_onClick}
+                        raised 
+                    />
+                </View>
         </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        height: '100%',
-        width:'100%',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+    cabecalho: {
+        flexDirection: 'row', 
+        justifyContent: 'flex-start', 
+        width: '78%', 
+        paddingBottom: 80
+    },
+    cabecalhoTexto: {
+        color: Colors.PretoClaro, 
+        opacity: 0.95
     },
     lineView: {
-        padding: 5
-    },
-    texto: {
-        width: 280,
-        elevation: 2, 
-        borderRadius: 25
-    },
-    textoInputStyle: {
-        borderBottomWidth: 0
-    },
-    iconeEsquerdo: {
-        left: -10,
-    },
-    botaoConfirma: {
-        width: 280,
-        paddingTop: 3
+        padding: 6
     },
     botaoEstilo: {
-        borderRadius: 25,
-        backgroundColor: '#f27cb1',
+        backgroundColor: Colors.RosaClaro,
     },
     botaoTextoEstilo: {
-        color: '#fafafa'
+        color: Colors.Branco
     }
 })
