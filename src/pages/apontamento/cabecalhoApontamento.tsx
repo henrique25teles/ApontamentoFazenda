@@ -1,15 +1,15 @@
 import React, { PropsWithChildren } from 'react';
 import { View, StyleSheet } from 'react-native';
-import {Text, Icon} from 'react-native-elements'
+import {Text, Avatar} from 'react-native-elements'
 
 import {StackProps} from 'types/common/navigation'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Evento from 'types/models/Evento';
 import {format as formatDate} from 'date-fns'
 import ptBrLocale from 'date-fns/locale/pt-BR'
 import { useSelector } from 'react-redux';
 import { GlobalStore } from 'store';
 import Apontamento from 'types/models/Apontamento';
+import Colors from 'shared/styles/Colors';
 
 interface Props extends StackProps<any> {
     evento: Evento
@@ -26,7 +26,14 @@ export default function CabecalhoApontamento(props: PropsWithChildren<Props>){
         <View style={styles.cabecalho}>
             <View style={styles.viewTurma}>
                 <Text h3 h3Style={styles.turmaLabel}>{props.evento.turma}</Text>
-                <Icon type="font-awesome" name="sitemap" Component={TouchableOpacity} onPressOut={visualizarItensApontamentos} raised />
+                <Avatar 
+                    icon={{name: 'sitemap', type: 'font-awesome', color: Colors.Branco}}
+                    overlayContainerStyle={{ backgroundColor: Colors.RosaClaro, elevation: 6 }}
+                    onPress={visualizarItensApontamentos}
+                    size={45}
+                    rounded
+                />
+                
             </View>
             <View>
                 <Text h4 h4Style={styles.dataApontamentoLabel} >{apontamentoSelecionado.dataHoraInicio ? formatDate(new Date(apontamentoSelecionado.dataHoraInicio), "'Apontamento Iniciado às' hh':'mm ", {locale: ptBrLocale}) : ""}</Text>
@@ -52,11 +59,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     turmaLabel: {
-        color: '#00000080',
+        color: Colors.PretoClaro,
         opacity: 0.95
     },
     dataApontamentoLabel: {
-        color: '#e63d17',
+        color: Colors.Vermelho,
         fontSize: 16
     },
 })

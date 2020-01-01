@@ -7,6 +7,7 @@ import { ApontamentosSelecionadoActionTypes } from 'types/store/ApontamentoSelec
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalStore } from 'store';
 import Apontamento from 'types/models/Apontamento';
+import Colors from 'shared/styles/Colors';
 
 interface Props extends StackProps<any> {
     isIniciado: boolean
@@ -47,7 +48,7 @@ export default function BotoesApontamento(props: PropsWithChildren<Props>) {
                 props.isPausado ?
                 <Button
                     title="Retomar"
-                    icon={{name:'play', type:'feather'}}
+                    icon={{name:'play', type:'feather', color: Colors.Branco}}
                     type="solid"
                     containerStyle={styles.botaoContainer}
                     buttonStyle={styles.botaoIniciar}
@@ -57,7 +58,7 @@ export default function BotoesApontamento(props: PropsWithChildren<Props>) {
                 :
                 <Button
                     title="Pausar"
-                    icon={{name:'pause', type:'feather'}}
+                    icon={{name:'pause', type:'feather', color: Colors.Branco}}
                     type="solid"
                     containerStyle={styles.botaoContainer}
                     buttonStyle={styles.botaoPausar}
@@ -67,7 +68,7 @@ export default function BotoesApontamento(props: PropsWithChildren<Props>) {
             }
                 <Button
                     title="Finalizar Apontamento"
-                    icon={{name:'flag-checkered', type:'font-awesome'}}
+                    icon={{name:'flag-checkered', type:'font-awesome', color: Colors.Branco}}
                     type="solid"
                     containerStyle={styles.botaoContainer}
                     buttonStyle={styles.botaoFinalizar}
@@ -81,7 +82,7 @@ export default function BotoesApontamento(props: PropsWithChildren<Props>) {
     return (
         <Button
             title="Iniciar Apontamento"
-            icon={{name:'play', type:'feather'}}
+            icon={{name:'play', type:'feather', color: Colors.Branco}}
             type="solid"
             containerStyle={styles.botaoContainer}
             buttonStyle={styles.botaoIniciar}

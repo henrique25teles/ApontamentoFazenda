@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, AsyncStorage } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import {AppLoading} from 'expo'
 import {Asset} from 'expo-asset'
 import * as Font from 'expo-font'
-import { Ionicons, Entypo, AntDesign, MaterialCommunityIcons, FontAwesome5, FontAwesome, Octicons, MaterialIcons, EvilIcons, Feather } from '@expo/vector-icons';
+import { 
+    Ionicons, 
+    Entypo, 
+    AntDesign, 
+    MaterialCommunityIcons, 
+    FontAwesome5, 
+    FontAwesome, 
+    Octicons, 
+    MaterialIcons, 
+    EvilIcons, 
+    Feather 
+} from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 
 import { EventosActionTypes } from 'types/store/EventosState'
@@ -17,16 +28,21 @@ export default function Start() {
 
     async function _loadResourcesAsync() {
         await Promise.all([
-          Font.loadAsync(MaterialIcons.font),
-          Font.loadAsync(Ionicons.font),
-          Font.loadAsync(MaterialCommunityIcons.font),
-          Font.loadAsync(Entypo.font),
-          Font.loadAsync(AntDesign.font),
-          Font.loadAsync(FontAwesome.font),
-          Font.loadAsync(FontAwesome5.font),
-          Font.loadAsync(Octicons.font),
-          Font.loadAsync(EvilIcons.font),
-          Font.loadAsync(Feather.font),
+            Font.loadAsync(MaterialIcons.font),
+            Font.loadAsync(Ionicons.font),
+            Font.loadAsync(MaterialCommunityIcons.font),
+            Font.loadAsync(Entypo.font),
+            Font.loadAsync(AntDesign.font),
+            Font.loadAsync(FontAwesome.font),
+            Font.loadAsync(FontAwesome5.font),
+            Font.loadAsync(Octicons.font),
+            Font.loadAsync(EvilIcons.font),
+            Font.loadAsync(Feather.font),
+            Font.loadAsync({
+                'roboto-bold': require('../assets/fonts/Roboto-Bold.ttf'),
+                'roboto-italic': require('../assets/fonts/Roboto-Italic.ttf'),
+                'roboto-regular': require('../assets/fonts/Roboto-Regular.ttf')
+            }),
         ]);
       };
 

@@ -28,10 +28,6 @@ export default function ApontamentoPage(props: PropsWithChildren<StackProps<any>
         dispatch({type: ApontamentosSelecionadoActionTypes.CHANGE_EVENTO_APONTAMENTO, payload: itemValue})
     }
 
-    function btnLogOut_onClick() {
-        props.navigation.navigate('Login')
-    }
-
     return (
         <View style={styles.container}>
             {
@@ -97,13 +93,6 @@ export default function ApontamentoPage(props: PropsWithChildren<StackProps<any>
                 : 
                 null
             }
-            <Button 
-                title="Sair"
-                type="clear"
-                containerStyle={styles.botaoLogOut}
-                titleStyle={styles.textoLogOut}
-                onPressOut={btnLogOut_onClick}
-            />
         </View>
     );
 }
@@ -144,13 +133,4 @@ const styles = StyleSheet.create({
     iconeEsquerdo: {
         left: -10,
     },
-    botaoLogOut: {
-        position: 'absolute',
-        bottom: 5,
-        right: 5,
-    },
-    textoLogOut: {
-        textDecorationLine: "underline",
-        fontSize: 22
-    }
 })

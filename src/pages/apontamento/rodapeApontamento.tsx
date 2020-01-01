@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { GlobalStore } from 'store';
 import Apontamento from 'types/models/Apontamento';
 import { useInterval, convertMiliSecondsToTimeElapsed } from 'shared/helpers/Util';
+import Colors from 'shared/styles/Colors';
 
 interface Props extends StackProps<any> {}
 
@@ -30,12 +31,12 @@ export default function RodapeApontamento(props: PropsWithChildren<Props>){
     return (
         <View style={styles.rodape}>
                 <View style={styles.tempoTotalView}>
-                    <Text h4>Tempo</Text>
-                    <Text h4 h4Style={styles.h4Totais}>{tempoPassado}</Text>
+                    <Text h4 h4Style={[styles.h4Titulo, {textAlign: 'left'}]}>Tempo</Text>
+                    <Text h4 h4Style={[styles.h4Totais, {textAlign: 'left'}]}>{tempoPassado}</Text>
                 </View>
                 <View style={styles.totalApontadoView}>
-                    <Text h4>Total Apontado</Text>
-                    <Text h4 h4Style={styles.h4Totais}>0</Text>
+                    <Text h4 h4Style={[styles.h4Titulo, {textAlign: 'right'}]}>Total Apontado</Text>
+                    <Text h4 h4Style={[styles.h4Totais, {textAlign: 'right'}]}>0,00</Text>
                 </View>
         </View>
     )
@@ -45,21 +46,27 @@ const styles = StyleSheet.create({
     rodape: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '80%',
+        elevation: 5
     },
     tempoTotalView: {
         flex: 1,
         flexDirection: 'column',
-        margin: 5
+        margin: 5,
     },
     totalApontadoView: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'column',
-        margin: 5
+        margin: 5,
+    },
+    h4Titulo: {
+        color: Colors.PretoClaro,
     },
     h4Totais: {
         color: '#e63d17',
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center'
     },
 })

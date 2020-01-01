@@ -1,10 +1,9 @@
 import React, { PropsWithChildren, useState } from 'react';
-import { View, FlatList, Modal, StyleSheet, Animated } from 'react-native';
+import { View, FlatList, Modal, StyleSheet, Animated, TouchableOpacity } from 'react-native';
 import {ListItem, Icon, Input, Text, Button} from 'react-native-elements'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 import {StackProps} from 'types/common/navigation'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props extends StackProps<any> {}
 
@@ -80,13 +79,13 @@ export default function ApontamentoQuantidades(props: PropsWithChildren<Props>){
                     subtitle={item.quantidade.toString()}
                     leftAvatar={{
                         icon: {name:'user', type:'antdesign'}, 
-                        size: 'medium'
+                        size: 'small'
                     }}
                     rightIcon={
                         <Icon 
                             name="plussquareo" 
                             type="antdesign" 
-                            size={25} 
+                            size={18} 
                             Component={TouchableOpacity} 
                             onPress={() => adicionarQuantidade(item.id)} 
                             raised

@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useState } from 'react';
-import { View, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Modal, StyleSheet, FlatList } from 'react-native';
 
 import {StackProps} from 'types/common/navigation'
 import { Text, ListItem, Icon, Button, Input } from 'react-native-elements';
-import { FlatList } from 'react-native-gesture-handler';
+import Colors from 'shared/styles/Colors';
 
 interface Props extends StackProps<any> {}
 
@@ -17,12 +17,19 @@ export default function ApontamentoQuantidadesPage(props: PropsWithChildren<Prop
     const [isModalVisivel, setIsModalVisivel] = useState(false)
 
     const quantidades: Array<Quantidade> = [
-        {id: 1, hora: '07:15', quantidade: 15},
-        {id: 2, hora: '09:25', quantidade: 3},
-        {id: 3, hora: '08:30', quantidade: 18},
-        {id: 4, hora: '04:38', quantidade: 4},
+        {id: 1, hora: '07:15', quantidade: 15.25},
+        {id: 2, hora: '09:25', quantidade: 3.40},
+        {id: 3, hora: '08:30', quantidade: 18.16},
+        {id: 4, hora: '04:38', quantidade: 40},
         {id: 5, hora: '09:25', quantidade: 4},
         {id: 6, hora: '12:45', quantidade: 7},
+        {id: 7, hora: '23:45', quantidade: 9.48},
+        {id: 8, hora: '19:45', quantidade: 10.25},
+        {id: 9, hora: '08:45', quantidade: 25},
+        {id: 10, hora: '21:45', quantidade: 30},
+        {id: 11, hora: '19:45', quantidade: 100},
+        {id: 12, hora: '18:45', quantidade: 250},
+        {id: 13, hora: '12:50', quantidade: 25000},
     ]
 
     function keyextractor(item, index): string {
@@ -36,8 +43,8 @@ export default function ApontamentoQuantidadesPage(props: PropsWithChildren<Prop
     function renderItem({item, index}){
         return (
             <ListItem
-                title={item.id.toString()} 
-                subtitle={`Horário ${item.hora}`}
+                title={`${item.id.toString()} - Horário:`} 
+                subtitle={`${item.hora}`}
                 rightTitle={`Qtde: ${item.quantidade.toString()}`}
                 onPress={() => setIsModalVisivel(true)}
                 Component={TouchableOpacity}
@@ -49,14 +56,15 @@ export default function ApontamentoQuantidadesPage(props: PropsWithChildren<Prop
     return (
         <>
             <View style={{flexDirection: 'column', flex: 1, justifyContent: 'center', width: '100%', height: '100%'}}>
-                <View style={{height: 120}}>
+                <View style={{height: 100}}>
                     <ListItem 
                         title="João da silva"
+                        rightTitle="Total: 50,45"
                         leftAvatar={{
                             icon: {name:'user', type:'antdesign'}, 
                             size: 'medium'
                         }} 
-                        containerStyle={{backgroundColor: '#c5c7c9', height: 120, elevation: 5}}
+                        containerStyle={{backgroundColor: Colors.Cinza, height: 100, elevation: 5}}
                     />
                 </View>
                 <View style={{flex: 1}}>
@@ -65,11 +73,6 @@ export default function ApontamentoQuantidadesPage(props: PropsWithChildren<Prop
                         renderItem={renderItem}
                         keyExtractor={keyextractor} 
                     />
-                </View>
-                <View style={{flexDirection: 'column', elevation: 5, alignItems: 'flex-end', height: 50, backgroundColor: '#c5c7c9'}}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end'}}>
-                        <Text h4>Total: 300</Text>
-                    </View>
                 </View>
             </View>
             <Modal animationType="fade" visible={isModalVisivel} hardwareAccelerated={true} transparent >
@@ -102,13 +105,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#00000080',
+        backgroundColor: Colors.PretoClaro,
         opacity: 50
     },
     modalView: {
         width: 300,
         height: 300,
-        backgroundColor: '#fff', 
+        backgroundColor: Colors.Branco, 
         padding: 20,
         justifyContent: "center"
     },
