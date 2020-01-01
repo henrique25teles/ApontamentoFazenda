@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useRef, useState, useEffect} from 'react'
-import { StyleSheet, KeyboardAvoidingView, Animated, Easing  } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, Animated, Easing, View  } from 'react-native'
 import { Input, Text } from 'react-native-elements'
 
 import defaultStyles from 'shared/styles/EstilosPadrao'
@@ -51,38 +51,21 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
 
     return (
         <KeyboardAvoidingView behavior="height" style={defaultStyles.container}>
-                <Animated.View style={[
-                    styles.cabecalho, 
-                    {
-                        transform: [ { translateY: cabecalhoVY } ]
-                    }
-                ]}>
-                    <Text h1 h1Style={styles.cabecalhoTexto}>Login</Text>
-                </Animated.View>
-                <Animated.View style={[
-                    styles.lineView,
-                    {
-                        transform: [ { translateX: usuarioVX } ]
-                    }
-                ]}>
-                    <Usuario txtSenha={txtSenha} />
-                </Animated.View>
-                <Animated.View style={[
-                    styles.lineView,
-                    {
-                        transform: [ { translateX: senhaVX } ]
-                    }
-                ]}>
-                    <Senha reference={txtSenha} />
-                </Animated.View>
-                <Animated.View style={[
-                    styles.lineView,
-                    {
-                        transform: [ { translateX: btnLoginVX } ]
-                    }
-                ]}>
-                    <BotaoLogin {...props} />
-                </Animated.View>
+            <Animated.View style={[ styles.cabecalho, { transform: [{ translateY: cabecalhoVY }] }]}>
+                <Text h1 h1Style={styles.cabecalhoTexto}>Login</Text>
+            </Animated.View>
+            <Animated.View style={[ styles.lineView, { transform: [ { translateX: usuarioVX } ]} ]}>
+                <Usuario txtSenha={txtSenha} />
+            </Animated.View>
+            <Animated.View style={[ styles.lineView, {transform: [ { translateX: senhaVX } ]} ]}>
+                <Senha reference={txtSenha} />
+            </Animated.View>
+            <Animated.View style={[ styles.lineView, {transform: [ { translateX: btnLoginVX } ]} ]}>
+                <BotaoLogin {...props} />
+            </Animated.View>
+            <View style={styles.copyright}>
+                <Text style={styles.copyrightText}>Openline Informática Ltda</Text>
+            </View>
         </KeyboardAvoidingView>
     );
 }
@@ -101,4 +84,12 @@ const styles = StyleSheet.create({
     lineView: {
         padding: 6
     },
+    copyright: {
+        position: 'absolute', 
+        bottom: 1
+    },
+    copyrightText: {
+        color: Colors.PretoClaro, 
+        fontSize: 11
+    }
 })
