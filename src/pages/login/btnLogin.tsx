@@ -12,7 +12,7 @@ export default function BotaoLogin(props: PropsWithChildren<Props>){
     const [isLoading, setIsLoading] = useState<boolean>(false);
   
     function btnEntrar_icon(): IconNode {
-        return <Icon name="login" type="material-community" />
+        return <Icon name="login" type="material-community" color={Colors.PretoClaro} />
     }
 
     function btnEntrar_onClick(): void {

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useRef, useState, useEffect} from 'react'
 import { StyleSheet, KeyboardAvoidingView, Animated, Easing, View  } from 'react-native'
-import { Input, Text } from 'react-native-elements'
+import { Input, Text, Icon } from 'react-native-elements'
 
 import defaultStyles from 'shared/styles/EstilosPadrao'
 import {StackProps} from 'types/common/navigation'
@@ -51,6 +51,9 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
 
     return (
         <KeyboardAvoidingView behavior="height" style={defaultStyles.container}>
+            <View style={styles.botaoConfiguracoes}>
+                <Icon name="settings" type="feather" color={Colors.PretoClaro} onPress={() => {}} raised />
+            </View>
             <Animated.View style={[ styles.cabecalho, { transform: [{ translateY: cabecalhoVY }] }]}>
                 <Text h1 h1Style={styles.cabecalhoTexto}>Login</Text>
             </Animated.View>
@@ -71,6 +74,11 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
 }
 
 const styles = StyleSheet.create({
+    botaoConfiguracoes: {
+        position: 'absolute', 
+        top: 25, 
+        right: 5
+    },
     cabecalho: {
         flexDirection: 'row', 
         justifyContent: 'flex-start', 
