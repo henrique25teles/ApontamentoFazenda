@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, Dispatch } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { StyleSheet, Alert } from 'react-native';
 import {Button} from 'react-native-elements'
 

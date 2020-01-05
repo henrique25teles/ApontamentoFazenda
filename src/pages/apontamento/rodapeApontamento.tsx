@@ -1,8 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import {Text} from 'react-native-elements'
-import {formatDistanceStrict} from 'date-fns'
-import ptBrLocale from 'date-fns/locale/pt-BR'
 
 import {StackProps} from 'types/common/navigation'
 import { useSelector } from 'react-redux';

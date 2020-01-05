@@ -3,7 +3,7 @@ import { View, StyleSheet, Picker } from 'react-native'
 import { NavigationStackOptions } from 'react-navigation-stack'
 import { Text } from 'react-native-elements'
 
-import {StackProps} from 'types/common/navigation'
+import {StackProps, StackNavOptions} from 'types/common/navigation'
 import BotoesApontamento from 'pages/apontamento/btnIniciarFinalizarApontamento'
 import CabecalhoApontamento from './cabecalhoApontamento'
 import RodapeApontamento from './rodapeApontamento'
@@ -13,10 +13,12 @@ import Evento from 'types/models/Evento'
 import CentroCusto from 'types/models/CentroCusto'
 import Apontamento from 'types/models/Apontamento'
 import { ApontamentosSelecionadoActionTypes } from 'types/store/ApontamentoSelecionadoState'
+import HeaderRight from './headerRight'
 
-export function navigationOptions(): NavigationStackOptions {
+export function navigationOptions(props: StackNavOptions): NavigationStackOptions {
     return {
         title: 'Iniciar Apontamento',
+        headerRight: <HeaderRight {...props} />
     }
 }
 
