@@ -106,10 +106,6 @@ export default function ApontamentoPage(props: PropsWithChildren<StackProps>) {
     );
 }
 
-// ApontamentoPage.navigationOptions = (props: StackProps<any>): NavigationOptionsStack => ({
-
-// })
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

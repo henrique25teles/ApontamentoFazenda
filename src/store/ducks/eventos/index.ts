@@ -5,7 +5,7 @@ import Evento from 'types/models/Evento'
 
 const INITIAL_STATE: EventosState = {
     all: [
-        {id: 0, descricao: 'Selecione'}
+        {id: 0, descricao: 'Selecione', turma: ''}
     ],
 }
 

@@ -15,4 +15,4 @@ const updateTodosEventos = (payload: Evento[]) => action(EventosActionTypes.UPDA
 
 const deletaTodosEventos = () => action(EventosActionTypes.DELETE_EVENTO)
 
-export { addEvento, updateEvento, deleteEvento, updateTodosEventos, deletaTodosEventos }
+export { addEvento, updateEvento, deleteEvento, loadEventos, updateTodosEventos, deletaTodosEventos }

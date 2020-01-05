@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, AsyncStorage } from 'react-native'
 import {AppLoading} from 'expo'
 import {Asset} from 'expo-asset'
 import * as Font from 'expo-font'
@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { EventosActionTypes } from 'types/store/EventosState'
 import { CentrosCustosActionTypes } from 'types/store/CentrosCustosState';
 import AppContainer from './routes'
+import { UsuariosActionTypes } from 'types/store/UsuariosState';
 
 export default function Start() {
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -52,11 +53,13 @@ export default function Start() {
 
     function loadDados(): void {
         dispatch({ type: CentrosCustosActionTypes.LOAD_CENTROSCUSTOS })
-        dispatch({ type: EventosActionTypes.LOAD_EVENTOS})
+        dispatch({ type: EventosActionTypes.LOAD_EVENTOS })
+        dispatch({ type: UsuariosActionTypes.LOAD_USUARIOS })
     }
     
     if (isLoading) {
         loadDados()
+        //AsyncStorage.getAllKeys().then(keys => keys.forEach(key => AsyncStorage.getItem(key).then(x => console.log(x))))
         
         return (
             <AppLoading 

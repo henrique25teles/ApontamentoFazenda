@@ -1,13 +1,16 @@
 import React, { PropsWithChildren, useRef, useState, useEffect} from 'react'
-import { StyleSheet, KeyboardAvoidingView, Animated, Easing, View  } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, Animated, Easing, View, AsyncStorage  } from 'react-native'
 import { Input, Text, Icon } from 'react-native-elements'
 
 import defaultStyles from 'shared/styles/EstilosPadrao'
 import {StackProps} from 'types/common/navigation'
 import Colors from 'shared/styles/Colors'
-import Usuario from './txtUsuario'
+import UsuarioText from './txtUsuario'
 import Senha from './txtSenha'
 import BotaoLogin from './btnLogin'
+import { useSelector } from 'react-redux'
+import { GlobalStore } from 'store'
+import Usuario from 'types/models/Usuario'
 
 export default function Login(props: PropsWithChildren<StackProps<any>>) {
     const [cabecalhoVY] = useState(new Animated.Value(-300))
@@ -18,11 +21,20 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
     
     const txtSenha = useRef<Input>();
 
+    const usuarioSelecionado = useSelector<GlobalStore, Usuario>(state => state.usuarios.selecionado)
+    
+    const [usuario, setUsuario] = useState('' || usuarioSelecionado.nome)
+    const [senha, setSenha] = useState('' || usuarioSelecionado.senha)
+
     useEffect(() => {
-        animarTelaIn()
+        if (usuarioSelecionado.id) {
+            props.navigation.navigate('Main')
+        } else {
+            animarTelaIn()
+        }
     }, [])
 
-    function animarTelaIn() {
+    async function animarTelaIn() {
         Animated.timing(cabecalhoVY, {
             toValue: 0,
             duration: 500,
@@ -113,13 +125,13 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
                 <Text h1 h1Style={styles.cabecalhoTexto}>Login</Text>
             </Animated.View>
             <Animated.View style={[ styles.lineView, { transform: [ { translateX: usuarioVX } ]} ]}>
-                <Usuario txtSenha={txtSenha} />
+                <UsuarioText txtSenha={txtSenha} usuario={usuario} setUsuario={setUsuario} />
             </Animated.View>
             <Animated.View style={[ styles.lineView, {transform: [ { translateX: senhaVX } ]} ]}>
-                <Senha reference={txtSenha} />
+                <Senha reference={txtSenha} senha={senha} setSenha={setSenha} />
             </Animated.View>
             <Animated.View style={[ styles.lineView, {transform: [ { translateX: btnLoginVX } ]} ]}>
-                <BotaoLogin {...props} />
+                <BotaoLogin {...props} usuario={usuario} senha={senha} />
             </Animated.View>
             <View style={styles.copyright}>
                 <Text style={styles.copyrightText}>Openline Informática Ltda</Text>

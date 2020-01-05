@@ -1,10 +1,13 @@
-import React, { PropsWithChildren, MutableRefObject } from 'react';
+import React, { PropsWithChildren, MutableRefObject, useEffect } from 'react';
 
 import defaultStyles from 'shared/styles/EstilosPadrao'
 import { Input, IconNode, Icon } from 'react-native-elements';
+import { AsyncStorage } from 'react-native';
 
 interface Props {
     txtSenha: MutableRefObject<Input>
+    usuario: string,
+    setUsuario: (texto: string) => void
 }
 
 export default function Usuario(props: PropsWithChildren<Props>){
@@ -31,6 +34,8 @@ export default function Usuario(props: PropsWithChildren<Props>){
             blurOnSubmit={false} 
             returnKeyType="next"
             textContentType="username"
+            value={props.usuario}
+            onChangeText={props.setUsuario}
             onSubmitEditing={txtUsuario_onSubmit}
         />
     )

@@ -1,25 +1,49 @@
 import React, { PropsWithChildren, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert, AsyncStorage } from 'react-native';
 
 import defaultStyles from 'shared/styles/EstilosPadrao'
 import Colors from 'shared/styles/Colors'
 import {StackProps} from 'types/common/navigation'
 import { IconNode, Icon, Button } from 'react-native-elements';
+import Usuario from 'types/models/Usuario';
+import { useSelector, useDispatch } from 'react-redux';
+import { GlobalStore } from 'store';
+import { UsuariosActionTypes } from 'types/store/UsuariosState';
 
-interface Props extends StackProps<any> {}
+interface Props extends StackProps<any> { 
+    usuario: string,
+    senha: string
+}
 
 export default function BotaoLogin(props: PropsWithChildren<Props>){
     const [isLoading, setIsLoading] = useState<boolean>(false);
   
+    const dispatch = useDispatch()
+
+    const usuarios = useSelector<GlobalStore, Usuario[]>(state => state.usuarios.all)
+
     function btnEntrar_icon(): IconNode {
         return <Icon name="login" type="material-community" color={Colors.PretoClaro} />
     }
 
-    function btnEntrar_onClick(): void {
+    async function btnEntrar_onClick(): Promise<void> {
         setIsLoading(true)
-        setTimeout(() => {
-            props.navigation.navigate('Main')
-        }, 1500);
+
+        const usuarioSelecionado = usuarios.find(x => x.nome == props.usuario && x.senha == props.senha)
+
+        if (usuarioSelecionado){
+            await AsyncStorage.setItem('usuarioSalvo', props.usuario)
+            await AsyncStorage.setItem('senhaSalva', props.senha)
+
+            dispatch({type: UsuariosActionTypes.SELECIONA_USUARIO, payload: usuarioSelecionado})
+            
+            setTimeout(() => {
+                props.navigation.navigate('Main')
+            }, 1500);
+        } else {
+            Alert.alert('', 'Usuário não encontrado')
+            setIsLoading(false)
+        }
     }
 
     return (

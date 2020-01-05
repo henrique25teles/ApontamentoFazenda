@@ -5,6 +5,8 @@ import { Icon, IconNode, Input } from 'react-native-elements';
 
 interface Props {
     reference: MutableRefObject<Input>
+    senha: string
+    setSenha: (texto: string) => void
 }
 
 export default function Senha(props: PropsWithChildren<Props>){
@@ -27,6 +29,8 @@ export default function Senha(props: PropsWithChildren<Props>){
             returnKeyType="done"
             textContentType="password"
             secureTextEntry={true}
+            value={props.senha}
+            onChangeText={props.setSenha}
             ref={props.reference}
         />
     )
