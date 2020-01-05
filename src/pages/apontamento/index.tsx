@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { View, StyleSheet, Picker } from 'react-native'
-import { Text, Button } from 'react-native-elements'
+import { NavigationStackOptions } from 'react-navigation-stack'
+import { Text } from 'react-native-elements'
 
 import {StackProps} from 'types/common/navigation'
 import BotoesApontamento from 'pages/apontamento/btnIniciarFinalizarApontamento'
@@ -13,7 +14,13 @@ import CentroCusto from 'types/models/CentroCusto'
 import Apontamento from 'types/models/Apontamento'
 import { ApontamentosSelecionadoActionTypes } from 'types/store/ApontamentoSelecionadoState'
 
-export default function ApontamentoPage(props: PropsWithChildren<StackProps<any>>) {
+export function navigationOptions(): NavigationStackOptions {
+    return {
+        title: 'Iniciar Apontamento',
+    }
+}
+
+export default function ApontamentoPage(props: PropsWithChildren<StackProps>) {
     const apontamentoSelecionado = useSelector<GlobalStore, Apontamento>(state => state.apontamentoSelecionado)
     const centrosCustos = useSelector<GlobalStore, CentroCusto[]>(state => state.centrosCustos.all)
     const eventos = useSelector<GlobalStore, Evento[]>(state => state.eventos.all)
@@ -96,6 +103,10 @@ export default function ApontamentoPage(props: PropsWithChildren<StackProps<any>
         </View>
     );
 }
+
+// ApontamentoPage.navigationOptions = (props: StackProps<any>): NavigationOptionsStack => ({
+
+// })
 
 const styles = StyleSheet.create({
     container: {

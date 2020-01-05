@@ -49,10 +49,14 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
 
     }, [])
 
+    function btnConfig_onPress() {
+        props.navigation.navigate('Config')
+    }
+
     return (
         <KeyboardAvoidingView behavior="height" style={defaultStyles.container}>
             <View style={styles.botaoConfiguracoes}>
-                <Icon name="settings" type="feather" color={Colors.PretoClaro} onPress={() => {}} raised />
+                <Icon name="settings" type="feather" color={Colors.PretoClaro} onPress={btnConfig_onPress} raised />
             </View>
             <Animated.View style={[ styles.cabecalho, { transform: [{ translateY: cabecalhoVY }] }]}>
                 <Text h1 h1Style={styles.cabecalhoTexto}>Login</Text>

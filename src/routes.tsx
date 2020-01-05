@@ -3,7 +3,8 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
 import PageLogin from 'pages/login'
-import PageIniciarApontamento from 'pages/apontamento/'
+import PageConfig from 'pages/configuracao'
+import PageIniciarApontamento, {navigationOptions as iniciarApontamentoNavigationOptions} from 'pages/apontamento/'
 import PageApontamentoItens from 'pages/apontamentoItens'
 import PageApontamentoQuantidades from 'pages/apontamentoQuantidades'
 import Colors from 'shared/styles/Colors'
@@ -13,9 +14,7 @@ import HeaderRight from 'shared/components/headerRightMenu'
 const MainPage = createStackNavigator({
     IniciarApontamento: {
         screen: PageIniciarApontamento,
-        navigationOptions: {
-            title: 'Iniciar Apontamento',
-        },
+        navigationOptions: iniciarApontamentoNavigationOptions,
     },
     ApontamentoItens: {
         screen: PageApontamentoItens,
@@ -35,7 +34,6 @@ const MainPage = createStackNavigator({
             backgroundColor: Colors.RosaClaro,
         },
         headerTintColor: Colors.Branco,
-        headerRight: <HeaderRight {...navigationOptions} />
     }),
 })
 
@@ -45,6 +43,9 @@ const NavegacaoInicial = createSwitchNavigator({
     },
     Main: {
         screen: MainPage,
+    },
+    Config: {
+        screen: PageConfig
     }
 })
 
