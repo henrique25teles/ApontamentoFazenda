@@ -14,12 +14,17 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
     const [usuarioVX] = useState(new Animated.Value(-500))
     const [senhaVX] = useState(new Animated.Value(-500))
     const [btnLoginVX] = useState(new Animated.Value(-500))
+    const [btnConfigVX] = useState(new Animated.Value(100))
     
     const txtSenha = useRef<Input>();
 
     useEffect(() => {
+        animarTelaIn()
+    }, [])
+
+    function animarTelaIn() {
         Animated.timing(cabecalhoVY, {
-            toValue: 30,
+            toValue: 0,
             duration: 500,
             useNativeDriver: true
         }).start()
@@ -38,6 +43,13 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
             delay: 100,
             useNativeDriver: true
         }).start()
+        
+        Animated.timing(btnConfigVX, {
+            toValue: 0,
+            duration: 500,
+            easing: Easing.elastic(1),
+            useNativeDriver: true
+        }).start()
 
         Animated.timing(btnLoginVX, {
             toValue: 0,
@@ -46,18 +58,57 @@ export default function Login(props: PropsWithChildren<StackProps<any>>) {
             delay: 200,
             useNativeDriver: true
         }).start()
+    }
 
-    }, [])
+    function animarTelaOut(callback: Function) {
+        Animated.timing(cabecalhoVY, {
+            toValue: -300,
+            duration: 500,
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(usuarioVX, {
+            toValue: -500,
+            duration: 500,
+            easing: Easing.elastic(1),
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(senhaVX, {
+            toValue: -500,
+            duration: 500,
+            easing: Easing.elastic(1),
+            delay: 100,
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(btnConfigVX, {
+            toValue: 100,
+            duration: 500,
+            easing: Easing.elastic(1),
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(btnLoginVX, {
+            toValue: -500,
+            duration: 500,
+            easing: Easing.elastic(1),
+            delay: 200,
+            useNativeDriver: true
+        }).start()
+
+        setTimeout(callback, 500);
+    }
 
     function btnConfig_onPress() {
-        props.navigation.navigate('Config')
+        animarTelaOut(() => props.navigation.navigate('Config'))
     }
 
     return (
         <KeyboardAvoidingView behavior="height" style={defaultStyles.container}>
-            <View style={styles.botaoConfiguracoes}>
+            <Animated.View style={[styles.botaoConfiguracoes, { transform: [{translateX: btnConfigVX}] }]}>
                 <Icon name="settings" type="feather" color={Colors.PretoClaro} onPress={btnConfig_onPress} raised />
-            </View>
+            </Animated.View>
             <Animated.View style={[ styles.cabecalho, { transform: [{ translateY: cabecalhoVY }] }]}>
                 <Text h1 h1Style={styles.cabecalhoTexto}>Login</Text>
             </Animated.View>

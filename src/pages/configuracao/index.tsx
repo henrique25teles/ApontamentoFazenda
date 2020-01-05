@@ -1,14 +1,86 @@
-import React, { PropsWithChildren } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import React, { PropsWithChildren, useState, useEffect } from 'react';
+import { View, StyleSheet, StatusBar, Animated, Easing } from 'react-native';
 
 import {SwitchProps} from 'types/common/navigation'
 import defaultStyles from 'shared/styles/EstilosPadrao'
-import { Icon, Text, ListItem, Input, IconNode, Button } from 'react-native-elements';
+import { Icon, Text, Input, IconNode, Button } from 'react-native-elements';
 import Colors from 'shared/styles/Colors';
 
 interface Props extends SwitchProps<any> { }
 
 export default function Configuracao(props: PropsWithChildren<Props>){
+    const [cabecalhoVY] = useState(new Animated.Value(-500))
+    const [urlConexaoVX] = useState(new Animated.Value(-500))
+    const [urlConexaoRemotaVX] = useState(new Animated.Value(-500))
+    const [btnAplicarVX] = useState(new Animated.Value(-500))
+
+    useEffect(() => {
+        animarTelaIn()
+    }, [])
+
+    function animarTelaIn() {
+        Animated.timing(cabecalhoVY, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(urlConexaoVX, {
+            toValue: 0,
+            duration: 500,
+            easing: Easing.elastic(1),
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(urlConexaoRemotaVX, {
+            toValue: 0,
+            duration: 500,
+            easing: Easing.elastic(1),
+            delay: 100,
+            useNativeDriver: true
+        }).start()
+        
+        Animated.timing(btnAplicarVX, {
+            toValue: 0,
+            duration: 500,
+            easing: Easing.elastic(1),
+            delay: 200,
+            useNativeDriver: true
+        }).start()
+    }
+
+    function animarTelaOut(callback: Function) {
+        Animated.timing(cabecalhoVY, {
+            toValue: -300,
+            duration: 500,
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(urlConexaoVX, {
+            toValue: -500,
+            duration: 500,
+            easing: Easing.elastic(1),
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(urlConexaoRemotaVX, {
+            toValue: -500,
+            duration: 500,
+            easing: Easing.elastic(1),
+            delay: 100,
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(btnAplicarVX, {
+            toValue: -500,
+            duration: 500,
+            easing: Easing.elastic(1),
+            delay: 200,
+            useNativeDriver: true
+        }).start()
+
+        setTimeout(callback, 500);
+    }
 
     function txtUrl_renderLeftIcon() : IconNode {
         return (
@@ -23,16 +95,16 @@ export default function Configuracao(props: PropsWithChildren<Props>){
     }
 
     function btnAplicar_onPress() {
-        props.navigation.navigate('Login')
+        animarTelaOut(() => props.navigation.navigate('Login'))
     }
 
     return (
         <View style={[defaultStyles.container, styles.container]}>
-            <View style={styles.header}>
+            <Animated.View style={[styles.header, { transform: [{translateY: cabecalhoVY}] }]}>
                 <Icon name="settings" type="feather" color={Colors.PretoClaro} />
                 <Text style={{color: Colors.Branco}}>Configuração</Text>
-            </View>
-            <View style={styles.content}>
+            </Animated.View>
+            <Animated.View style={[styles.content, { transform: [{translateX: urlConexaoVX}] }]}>
                 <Input 
                     placeholder="Url de conexão"
                     leftIcon={txtUrl_renderLeftIcon}
@@ -41,8 +113,8 @@ export default function Configuracao(props: PropsWithChildren<Props>){
                     leftIconContainerStyle={defaultStyles.textInputLeftIcon}
                     keyboardType="url"
                 />
-            </View>
-            <View style={styles.content}>
+            </Animated.View>
+            <Animated.View style={[styles.content, { transform: [{translateX: urlConexaoRemotaVX}] }]}>
                 <Input 
                     placeholder="Url de conexão Remota"
                     leftIcon={txtUrlRemota_renderLeftIcon}
@@ -51,12 +123,12 @@ export default function Configuracao(props: PropsWithChildren<Props>){
                     leftIconContainerStyle={defaultStyles.textInputLeftIcon}
                     keyboardType="url"
                 />
-            </View>
-            <View style={styles.footer}>
+            </Animated.View>
+            <Animated.View style={[styles.footer, { transform: [{translateX: btnAplicarVX}] }]}>
                 <View style={styles.footerView}>
                     <Button title="Aplicar" onPress={btnAplicar_onPress} />
                 </View>
-            </View>
+            </Animated.View>
         </View>
     )
 }
